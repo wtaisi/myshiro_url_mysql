@@ -31,10 +31,11 @@
 		 -->  
 		<property name="filterChainDefinitions">
 				<!-- /resources/**=noSessionCreation 
-						/login/updateAccount = authc 	-->
+						 	-->
 			<value>
 				/login/logout = anon
 				/login/signup = anon
+				/login/updateAccount = authc,roles[admin]
 				/** = authc
 			</value>
 		</property>
