@@ -18,4 +18,8 @@ public class UserServiceImpl {
 		return userDao.findByUserName(username);
 	}
 	
+	
+	public void addUser(Object obj) {
+		userDao.addEntiry(obj);
+	}
 }

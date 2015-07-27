@@ -25,4 +25,9 @@ public class UserDaoImpl{
 		return (User)query.uniqueResult();
 	}
 	
+	
+	public void addEntiry(Object obj) {
+		sessionFactory.getCurrentSession().save(obj);
+	}
+	
 }

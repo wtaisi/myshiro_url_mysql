@@ -60,13 +60,13 @@
 	</shiro:lacksRole>
 	
 	<h3>8.hasAnyRole标签 	验证当前用户是否属于以下任意一个角色。  </h3>
-	<shiro:hasAnyRoles name="developer, project manager, administrator">
-    You are either a developer, project manager, or administrator.
+	<shiro:hasAnyRoles name="admin, user, administrator">
+    You are either a admin, user, or administrator.
 	</shiro:hasAnyRoles>
 	
 	<h3>9.hasPermission标签 	验证当前用户是否拥有制定权限 </h3>
 	<shiro:hasPermission name="user:create">
-    <a href="createUser.jsp">Create a new User</a>
+    <a href="<%=basePath%>login/createUser">Create a new User</a>
 	</shiro:hasPermission>
 	
 	

@@ -4,6 +4,7 @@
 package com.base.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -14,17 +15,24 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.base.entity.Permissions;
+import com.base.entity.Roles;
+import com.base.entity.Url;
 import com.base.entity.User;
+import com.base.service.UserServiceImpl;
 
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+	
+	@Autowired
+	private UserServiceImpl userService;
 	
 	
 	@RequestMapping()
@@ -57,6 +65,59 @@ public class LoginController {
 	@RequestMapping(value="/updateAccount")
 	public String updateAccount() {
 		return "updateAccount";
+	}
+	
+	@RequestMapping(value="/createUser")
+	public String createUser() {
+		return "createUser";
+	}
+	
+	/**
+	 * 动态添加权限
+	 * @return
+	 */
+	@RequestMapping(value="/submitCreateUser", method = RequestMethod.POST)
+	public String submitCreateUser(String username, String password, String roles, String permission, String url,String roleDescription,String urlDescription) {
+		List<Roles> roleList=new ArrayList<Roles>();
+		List<Permissions> permissionsList=new ArrayList<Permissions>();
+		List<Url> urlList=new ArrayList<Url>();
+		if(SecurityUtils.getSubject().getSession()!=null){
+			if(SecurityUtils.getSubject().getSession().getAttribute("user")!=null){
+				Subject subject = SecurityUtils.getSubject();
+				if(subject.isPermitted("user:create")){
+					User u = (User) subject.getSession().getAttribute("user");
+					
+					Url ur=new Url();
+					ur.setUrl(url);
+					ur.setAvailable(true);
+					ur.setDescription(urlDescription);
+					urlList.add(ur);
+					
+					Permissions p=new Permissions();
+					p.setPermission(permission);
+					p.setAvailable(true);
+					p.setUrlList(urlList);
+					permissionsList.add(p);
+					
+					Roles r=new Roles();
+					r.setRole(roles);
+					r.setDescription(roleDescription);
+					r.setAvailable(true);
+					roleList.add(r);
+					r.setPermissionsList(permissionsList);
+					
+					u.setUsername(username);
+					u.setPassword(password);
+					u.setLocked(false);
+					u.setSalt("456");
+					u.setRoleList(roleList);
+					
+					userService.addUser(u);
+					return "index";
+				}
+			}
+		}
+		return "redirect:/";
 	}
 	
 	

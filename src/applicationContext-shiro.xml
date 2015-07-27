@@ -36,6 +36,7 @@
 				/login/logout = anon
 				/login/signup = anon
 				/login/updateAccount = authc,roles[admin]
+				/login/createUser =authc,roles[admin]
 				/** = authc
 			</value>
 		</property>
@@ -44,7 +45,7 @@
 		<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
 	</bean>
 	
-	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<!-- 保证实现了Shiro内部生命周期函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	
 	<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after the lifecycleBeanProcessor has run  -->

@@ -32,7 +32,7 @@ public class Roles implements Serializable{
 		private int id;
 		private String role;
 		private String description;
-		private int available;
+		private boolean available;
 		private List<User> userList = Lists.newArrayList();
 		private List<Permissions> permissionsList = Lists.newArrayList();
 		
@@ -74,15 +74,12 @@ public class Roles implements Serializable{
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public int getAvailable() {
+		public boolean isAvailable() {
 			return available;
 		}
-		public void setAvailable(int available) {
+		public void setAvailable(boolean available) {
 			this.available = available;
 		}
-		
-		
-		
 		@ManyToMany(
 				targetEntity=com.base.entity.Permissions.class,
 		    	fetch=FetchType.EAGER,
