@@ -51,7 +51,7 @@
 	
 	<h3>6.hasRole标签 		验证当前用户是否属于该角色 </h3>
 	<shiro:hasRole name="admin">
-    <a href="admin.jsp">Administer the system</a>
+    <a href="<%=basePath%>login/admin">Administer the system</a>
 	</shiro:hasRole>
 	
 	<h3>7.lacksRole标签 	 与hasRole标签逻辑相反，当用户不属于该角色时验证通过 </h3>

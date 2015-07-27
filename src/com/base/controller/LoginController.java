@@ -45,28 +45,42 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping(value="/go",method = RequestMethod.POST)
-	public String forward() {
-		return "login";
-	}
-	
+	/**
+	 * 登出
+	 * @return
+	 */
 	@RequestMapping(value="/logout")
 	public String logout() {
 		SecurityUtils.getSubject().logout();
 		return "redirect:/";
 	}
-	
+	/**
+	 * admin
+	 * @return
+	 */
+	@RequestMapping(value="/admin")
+	public String admin() {
+		return "admin";
+	}
+	/**
+	 * 注册
+	 * @return
+	 */
 	@RequestMapping(value="/signup")
 	public String signup() {
-		SecurityUtils.getSubject().logout();
 		return "signup";
 	}
-
+	/*
+	 * 修改个人信息
+	 */
 	@RequestMapping(value="/updateAccount")
 	public String updateAccount() {
 		return "updateAccount";
 	}
-	
+	/**
+	 * 创建用户
+	 * @return
+	 */
 	@RequestMapping(value="/createUser")
 	public String createUser() {
 		return "createUser";
